@@ -10,8 +10,10 @@ import { addToCart } from "../redux/dataSlice";
 
 function FoodBox({props}) {
   const [modal, setModal] = useState(false);
+  const [size, setSize] = useState("");
+  const [toppings, setToppings] = useState([]);
   const dispatch = useDispatch();
-
+  console.log(toppings)
 
   const notify = () => {
     toast.success('Item has been added to cart', {
@@ -49,18 +51,38 @@ function FoodBox({props}) {
                         </div>
                         <div className="modal-form">
                         <p>{props.description}</p>
-                          <h3><label name="size">Size :</label></h3>
+                          <span style={{fontSize:"20px",fontWeight:"bolder"}}><label name="size">{props.size[0].title} : </label></span>
+                          {/* size */}
                           {
-                            // props.size.items.map((size)=>(
-                            //   <>
-                            //     <input type="radio" name="size" value={size.size} />
-                            //     <label for="size">{size.size}</label>
-                            //   </>
-                            // ))
+                            props.size[0].items.map((size)=>(
+                              <>
+                                <input type="radio" name="size" value={size.size} onChange={(e)=>setSize(e.target.value)}/>
+                                <label for="size"> {size.size} </label>
+                              </>
+                            ))
                           }
-                          <h3><label name="addon">Add on :</label></h3>
+                          <br />
+                          <span style={{fontSize:"20px",fontWeight:"bolder"}}><label name="addon">{props.toppings[0].title} :</label></span>
+                          <br />
+                          {/* topping */}
+                          {
+                            props.toppings[0].items.map((topping)=>(
+                              <>
+                                <input type="checkbox" 
+                                  name="topping" 
+                                  value={topping.name} 
+                                  onChange={(e)=>setToppings((prev)=>
+                                    prev.includes(e.target.value) ?
+                                    prev.filter((item) => item !== e.target.value) :
+                                    [...prev,e.target.value]
+                                  )}/>
+                                <label for="topping"> {topping.name} </label>
+                                <br />
+                              </>
+                            ))
+                          }
                         </div>
-                        <button onClick={()=>dispatch(addToCart({...props,qty:1}), notify())} className="add-to-cart">Add to cart</button>
+                        <button onClick={()=>dispatch(addToCart({...props,qty:1,currSize:size,currToppings:toppings}), notify())} className="add-to-cart">Add to cart</button>
                         <button className="close-modal" onClick={toggleModal}>
                             <FaTimes />
                         </button>

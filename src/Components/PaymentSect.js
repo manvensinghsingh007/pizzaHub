@@ -36,6 +36,8 @@ function PaymentSect() {
             <div className="pay">
               <div>
                 <b>{item.name}</b>
+                <p>size : {item.currSize}</p>
+                <p>toppings : {item.currToppings.map((top)=>(<p>{top}</p>))}</p>
               </div>
               <p className="qty-box"><button style={{color:"white",border:"none",background:"none",fontSize:"24px",marginRight:"5px"}} onClick={()=>dispatch(qtySub(item.id))}>-</button>{item.qty}<button style={{color:"white",border:"none",background:"none",fontSize:"22px",marginLeft:"5px"}} onClick={()=>dispatch(qtyPlus(item.id))}>+</button></p>
               <p>Rs.{item.price*item.qty}</p>

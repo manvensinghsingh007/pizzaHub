@@ -49,7 +49,9 @@ export const dataSlice = createSlice({
                         "name": "Black Olive"
                     }
                 ]
-            }]
+            }],
+            "currSize":"Regular",
+            "currToppings":["Black Pepper"]
         }
     ]
   },
